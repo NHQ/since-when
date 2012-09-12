@@ -1,7 +1,7 @@
 **A simple timing module that uses process.hrtime**
 
     npm install since-when
-    
+
     var T = require('../')
       , time = new T()
       ;
