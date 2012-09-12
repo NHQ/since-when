@@ -8,10 +8,10 @@ usage
       , time = new T()
       ;
       
-    setInterval(tick, 500)
+    setInterval(tick, 1500)
     
     function tick(){
-      console.log(time.sinceLast())  
+      console.log(time.sinceLast()) // returns [seconds, nanoseconds]
     }
 
 __METHODS__
