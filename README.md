@@ -2,6 +2,7 @@
 
     npm install since-when
 
+
     var T = require('../')
       , time = new T()
       ;
@@ -15,6 +16,7 @@
 __METHODS__
 
 **T.sinceBegin** - time since new T()
+
 **T.sinceLast** - time since last tick, starts at new T()
  
- see /examples
+see /examples
