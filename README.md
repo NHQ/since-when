@@ -2,8 +2,9 @@
 
     npm install since-when
 
+usage
 
-    var T = require('../')
+    var T = require('since-when')
       , time = new T()
       ;
       
