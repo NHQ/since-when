@@ -32,7 +32,7 @@ T.prototype.every = function(ns, fn){
 
   function tock(){
     var ns = nanos(process.hrtime(self.beat))
-//    console.log(ns)
+
     if (ns > int){
       self.beat = process.hrtime();
       fn(tick, ns)
@@ -47,9 +47,6 @@ function nanos(arr){
   return arr[0] * 1e9 + arr[1]
 }
 
-function seconds(arr){
-  return arr[0] + (1e9 / arr[1])
-}
 function add(a, b){
   var ns = a[1] + b[1];
   b[0] += a[0];
