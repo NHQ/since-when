@@ -8,7 +8,7 @@ usage
     var time = new Time();
  
     time.every(1e9, tick)
-    // every billion nanosecond tock()
+    // every billion nanosecond tick
     
     function tick(tock, interval){
       console.log(interval + ' time in nanoseconds passed')
