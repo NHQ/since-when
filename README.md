@@ -1,23 +1,26 @@
-**A simple timing module that uses process.hrtime**
+**Timing functions that use process.hrtime**
 
     npm install since-when
 
 usage
 
-    var T = require('since-when')
-      , time = new T()
-      ;
-      
-    setInterval(tick, 1500)
+    var Time = require('../');
+    var time = new Time();
+ 
+    time.every(1e9, tick)
+    // every billion nanosecond tock()
     
-    function tick(){
-      console.log(time.sinceLast()) // returns [seconds, nanoseconds]
+    function tick(tock, interval){
+      console.log(interval + ' time in nanoseconds passed')
+      tock()
     }
-
+    
 __METHODS__
 
-**T.sinceBegin** - time since new T()
+**T.sinceBegin()** - time since new T()
 
-**T.sinceLast** - time since last tick, starts at new T()
+**T.sinceLast()** - time since last tick, starts at new T()
+
+**T.every(nanoseconds, function)** - call function(nextTick, interval) every nanoseconds. function must call nextTick()
  
 see /examples

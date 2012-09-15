@@ -1,9 +1,11 @@
-var T = require('../')
-  , time = new T()
-  ;
+var T = require('../');
+var time = new T();
   
-setInterval(tick, 1500)
+setInterval(tick, 0);
 
 function tick(){
   console.log(time.sinceLast())  
-}
+};
+
+
+

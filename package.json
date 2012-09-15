@@ -1,7 +1,7 @@
 {
   "name": "since-when",
-  "description": "timing helpers using process.hrtime",
-  "version": "0.2.0",
+  "description": "timing functions using process.hrtime",
+  "version": "0.4.0",
   "author": "Johnny Honestly <mostmodernist@gmail.com>",
   "dependencies": {},
   "devDependencies": {},

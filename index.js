@@ -20,6 +20,36 @@ T.prototype.sinceLast = function(){
   return this.x
 }
 
+T.prototype.every = function(ns, fn){
+  this.beat = process.hrtime()
+  var int = ns || 0
+    , fn = fn || function(t,c){c()}
+    , self = this;
+      
+  function tick(){
+    process.nextTick(tock)
+  }
+
+  function tock(){
+    var ns = nanos(process.hrtime(self.beat))
+//    console.log(ns)
+    if (ns > int){
+      self.beat = process.hrtime();
+      fn(tick, ns)
+    }
+    else tick()
+  }
+  
+  tick()
+}
+
+function nanos(arr){
+  return arr[0] * 1e9 + arr[1]
+}
+
+function seconds(arr){
+  return arr[0] + (1e9 / arr[1])
+}
 function add(a, b){
   var ns = a[1] + b[1];
   b[0] += a[0];
