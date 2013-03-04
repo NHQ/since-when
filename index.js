@@ -1,13 +1,12 @@
 module.exports = T
 
 function T(){
+  if(!(this instanceof T)) return new T();
   var self = this;
   self.start = process.hrtime()
   self.last = process.hrtime();
   self.x = []
   self.end = []
-
-  return self
 };
 
 T.prototype.sinceBegin = function(){
