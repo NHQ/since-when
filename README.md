@@ -1,23 +1,25 @@
-###since-when###
+##since-when?##
 
 __General purpose timing functions that use process.hrtime()__
 
-process.hrtime() returns arrays like this:
+These timing functions give you more precise readings bu using Node's Process.hrtime(). hrtime() returns arrays like this:
 
     [seconds, partial nanoseconds]
 
-where the second is nanoseconds more than seconds, which see
+where nanoseconds is in addition to seconds, which see
 
     var time = process.hrtime()
-    var nanoSeconds = (time[0] * 1e9) + time[1]
+    var totalNanoSeconds = (time[0] * 1e9) + time[1]
 
-Sometimes since-when returns these, sometimes it returns nanoseconds.
+Sometimes since-when returns these arrays.
 The reason being to be as slim as possible. If you are using the sinceLast()
 method, you may only want the nanosecond value anyway, ie time.sinceLast()[1]
 
+There is also a timed event loop method, see below time.every(ns, callback) which is accurate to sub-milliseconds intervals.
+
     npm install since-when
 
-usage
+###usage###
 
 ```js
 
@@ -45,9 +47,9 @@ var ns = f[1][0] * 1e9 + f[1][1]
 console.log('calculated answer to be: ' + f[0] + ' in %sns', ns)
 ```
     
-__METHODS__
+##METHODS##
 
-**T.sinceBegin()**
+**Time.sinceBegin()**
 
 Returns an hrtime array [seconds, nanoseconds] of time since new Time() was called
 
@@ -62,7 +64,7 @@ function tick(){
 };
 ```
 
-**T.sinceLast()**
+**Time.sinceLast()**
 Returns hrtime array of time since last sinceLast().
 
 ```js
@@ -76,7 +78,7 @@ function tick(){
 };
 ```
 
-**T.every(nanoseconds, event)** - 
+**Time.every(nanoseconds, event)** - 
 
 This calls your __function event(tock, interval)__ every __nanoseconds__. 
 Call __tock()__ in your function to keep the loop going.
@@ -101,7 +103,7 @@ function tock(tick, interval){
 };
 ```
 
-**T.avg()**
+**Time.avg()**
 
 Call this and it returns the average interval bewteen calls to T.avg()
 
