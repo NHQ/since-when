@@ -1,7 +1,7 @@
 {
   "name": "since-when",
   "description": "timing functions using process.hrtime",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "author": {
     "name": "Johnny Honestly",
     "email": "mostmodernist@gmail.com"
