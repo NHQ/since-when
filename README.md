@@ -15,7 +15,7 @@ Sometimes since-when returns these arrays.
 The reason being to be as slim as possible. If you are using the sinceLast()
 method, you may only want the nanosecond value anyway, ie time.sinceLast()[1]
 
-There is also a timed event loop method, see below time.every(ns, callback) which is accurate to sub-milliseconds intervals.
+There is also a timed event loop method, see below time.loop(ns, callback) which is accurate to sub-milliseconds intervals.
 
     npm install since-when
 
@@ -78,12 +78,17 @@ function tick(){
 };
 ```
 
-**Time.every(nanoseconds, event)** - 
-
-This calls your __function event(tock, interval)__ every __nanoseconds__. 
-Call __tock()__ in your function to keep the loop going.
-Interval should be close to the value (nanoseconds) you passed, 
+**Time.loop(nanoseconds, event, boolean)** - 
+aka Time.every(ns, eventm boolean)...
+This calls your __function__ every __nanoseconds__.
+The boolean argument decides whether to call yr function immediately,
+or wait the interval first. Defafaults to the interval. You function
+is called with two arguments, loop[function] and interval[number].
+Call __loop()__  to keep the loop going. Don't call it and it stops.
+Interval is the actual time since the last cycle, and
+should be close to the value (nanoseconds) you passed, 
 unless your process takes longer than that.
+
 This method is somewhat optimized. It does a little math
 to keep polling to a minimum, so as not to fill Node's event cue
 with a million process.nextTick()s. It does so by averaging how

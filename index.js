@@ -22,6 +22,14 @@ T.prototype.sinceLast = function(){
   return this.x
 }
 
+T.prototype.sinceLastNS = function(){
+  return nanos(this.sinceLast())
+};
+
+T.prototype.sinceBeginNS = function(){
+  return nanos(this.sinceBegin())
+};
+
 T.prototype.avg = function(){
   var ns = nanos(this.sinceLast())
   this.beats.push(ns);
@@ -29,6 +37,7 @@ T.prototype.avg = function(){
   return avg(this.beats);
 };
 
+T.prototype.loop =
 T.prototype.every = function(ns, fn, go){
 
   var self = new T();
