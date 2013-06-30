@@ -3,6 +3,13 @@
 General purpose timing functions that use process.hrtime()
 Now with process.hrtime shim for working in browsers with [browserify](https://github.com/substack/node-browserify) (which shims process itself).
 
+__Method Overview__
+* time.sinceBegin - call to get time since time was constructed
+* time.sinceLast - call to get time since last call
+* time.every - call a function every interval in nanoseconds
+* time.loop // same as above
+* time.avg - call to get average interval between all calls to same
+
 ```
 npm install since-when
 ```
@@ -87,14 +94,13 @@ This calls your __fn__ every __nanoseconds__.
 The boolean argument decides whether to call yr function immediately,
 or wait the __nanoseconds__ first. Defaults to the waiting the interval. 
 Your function is called with two arguments, loop[function] and interval[number].
-Call __loop()__  to keep the loop going! Don't call it and it stops.
+Call __loop()__  to keep the loop going! Don't call it and it stops!
 Interval is the actual time since the last cycle, and
 should be close to the value __nanoseconds__ you passed.
 
 This method is somewhat optimized. It does a little math, naively, you might say,
 to keep polling to a minimum, and not fill Node's event cue
-with a million process.nextTick()s. It does so by averaging how
-long your function takes to callback, and setting a threshold to a percentage of that interval.
+with a million process.nextTick()s.
 
 ```js
 var Time = require('since-when');

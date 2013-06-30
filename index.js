@@ -1,23 +1,27 @@
-if(!process.hrtime){ // browser fill
-	var ms2s = 1.0 / 1000.0;
-	var ns2ms = 1.0 / 1000000.0
-	
-	process.hrtime = function(){
-		if(arguments.length){
-			arguments[1] = new Date().getTime();
-			arguments[0] =  arguments[1] - millies(arguments[0])
-			return [parseInt(arguments[0] * ms2s), parseInt(((arguments[0] * ms2s) % 1) / ns2ms)];
-		}
-		else {
-			arguments[0] = new Date().getTime();
-			return [parseInt(arguments[0] * ms2s), parseInt(((arguments[0] * ms2s) % 1) / ns2ms)];
-		}
-	}
-}
+var ms2s = 1.0 / 1000.0;
+var ns2ms = 1.0 / 1000000.0
+var ns2s = 1e-9
 
 module.exports = T
 
 function T(){
+	if(!process.hrtime){ // browser fill
+
+		process.hrtime = function(){
+
+			if(arguments.length){
+				arguments[1] = new Date().getTime();
+				arguments[0] =  arguments[1] - millies(arguments[0])
+			}
+
+			else {
+				arguments[0] = new Date().getTime();
+			}
+			
+			return [parseInt(arguments[0] * ms2s), parseInt(((arguments[0] * ms2s) % 1) / ns2s)];
+			
+		}
+	}
   if(!(this instanceof T)) return new T();
   var self = this;
   self.start = self.last = self.beat = process.hrtime();
