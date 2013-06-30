@@ -1,7 +1,7 @@
 {
   "name": "since-when",
   "description": "timing functions using process.hrtime",
-  "version": "0.6.0",
+  "version": "1.0.0",
   "author": {
     "name": "Johnny Honestly",
     "email": "mostmodernist@gmail.com"
@@ -29,6 +29,5 @@
     "shasum": "2551a33c97c023689731f9a9ca47caeffc201d10"
   },
   "_from": "since-when@",
-  "_resolved": "https://registry.npmjs.org/since-when/-/since-when-0.4.7.tgz",
-  "license": "MIT"
+  "_resolved": "https://registry.npmjs.org/since-when/-/since-when-0.4.7.tgz"
 }
