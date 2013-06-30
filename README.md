@@ -1,31 +1,30 @@
 ##since-when?##
 
-__General purpose timing functions that use process.hrtime()__
+General purpose timing functions that use process.hrtime()
+Now with process.hrtime shim for working in browsers with [browserify](https://github.com/substack/node-browserify) (which shims process itself).
 
-These timing functions give you more precise readings bu using Node's Process.hrtime(). hrtime() returns arrays like this:
+```
+npm install since-when
+```
+
+These timing functions give you more precise readings by using Node's [Process.hrtime()](http://nodejs.org/docs/latest/api/process.html#process_process_hrtime). 
+hrtime() returns an array like this:
 
     [seconds, partial nanoseconds]
 
-where nanoseconds is in addition to seconds, which see
-
+where nanoseconds is in __addition__ to seconds, like so:
+```js
     var time = process.hrtime()
     var totalNanoSeconds = (time[0] * 1e9) + time[1]
+```
+Although it returns nanoseconds, it can only really be considered accurate to the millisecond when used in the browser.
 
-Sometimes since-when returns these arrays.
-The reason being to be as slim as possible. If you are using the sinceLast()
-method, you may only want the nanosecond value anyway, ie time.sinceLast()[1]
+If you pass the return value of a previous hrtime() to process.hrtime(lastTime), you are returned a delta array. 
 
-There is also a timed event loop method, see below time.loop(ns, callback) which is accurate to sub-milliseconds intervals.
-
-    npm install since-when
-
-###usage###
+## Example, from examples/fib.js
 
 ```js
-
-// A SYNCRONOUS FIBONACCI SEQUENCER
-
-var time = require('since-when');
+var time = require('../');
 
 var fib = function(n){
   var t = new time()
@@ -47,7 +46,7 @@ var ns = f[1][0] * 1e9 + f[1][1]
 console.log('calculated answer to be: ' + f[0] + ' in %sns', ns)
 ```
     
-##METHODS##
+##METHODS
 
 **Time.sinceBegin()**
 
@@ -63,6 +62,8 @@ function tick(){
   console.log(time.sinceBegin())  
 };
 ```
+**Time.sinceBeginNS()**
+same as above, but returns total time in nanoseconds
 
 **Time.sinceLast()**
 Returns hrtime array of time since last sinceLast().
@@ -77,20 +78,21 @@ function tick(){
   console.log(time.sinceLast())
 };
 ```
+**Time.sinceLastNS()**
+same as above, but returns total time in nanoseconds
 
-**Time.loop(nanoseconds, event, boolean)** - 
-aka Time.every(ns, eventm boolean)...
-This calls your __function__ every __nanoseconds__.
+**Time.loop(nanoseconds, fn, boolean)** ||
+**Time.every(...)***
+This calls your __fn__ every __nanoseconds__.
 The boolean argument decides whether to call yr function immediately,
-or wait the interval first. Defafaults to the interval. You function
-is called with two arguments, loop[function] and interval[number].
-Call __loop()__  to keep the loop going. Don't call it and it stops.
+or wait the __nanoseconds__ first. Defaults to the waiting the interval. 
+Your function is called with two arguments, loop[function] and interval[number].
+Call __loop()__  to keep the loop going! Don't call it and it stops.
 Interval is the actual time since the last cycle, and
-should be close to the value (nanoseconds) you passed, 
-unless your process takes longer than that.
+should be close to the value __nanoseconds__ you passed.
 
-This method is somewhat optimized. It does a little math
-to keep polling to a minimum, so as not to fill Node's event cue
+This method is somewhat optimized. It does a little math, naively, you might say,
+to keep polling to a minimum, and not fill Node's event cue
 with a million process.nextTick()s. It does so by averaging how
 long your function takes to callback, and setting a threshold to a percentage of that interval.
 
@@ -110,7 +112,7 @@ function tock(tick, interval){
 
 **Time.avg()**
 
-Call this and it returns the average interval bewteen calls to T.avg()
+Call this and it returns the average interval between all such calls.
 
 ```js
 var Time = require('../');

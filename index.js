@@ -1,3 +1,20 @@
+if(!process.hrtime){ // browser fill
+	var ms2s = 1.0 / 1000.0;
+	var ns2ms = 1.0 / 1000000.0
+	
+	process.hrtime = function(){
+		if(arguments.length){
+			arguments[1] = new Date().getTime();
+			arguments[0] =  arguments[1] - millies(arguments[0])
+			return [parseInt(arguments[0] * ms2s), parseInt(((arguments[0] * ms2s) % 1) / ns2ms)];
+		}
+		else {
+			arguments[0] = new Date().getTime();
+			return [parseInt(arguments[0] * ms2s), parseInt(((arguments[0] * ms2s) % 1) / ns2ms)];
+		}
+	}
+}
+
 module.exports = T
 
 function T(){
@@ -18,7 +35,7 @@ T.prototype.sinceBegin = function(){
 
 T.prototype.sinceLast = function(){
   this.x = process.hrtime(this.last)
-  this.last = add(this.x, this.last)
+  this.last = process.hrtime()
   return this.x
 }
 
@@ -37,7 +54,6 @@ T.prototype.avg = function(){
   return avg(this.beats);
 };
 
-T.prototype.loop =
 T.prototype.every = function(ns, fn, go){
 
   var self = new T();
@@ -95,6 +111,10 @@ T.prototype.every = function(ns, fn, go){
 
   else setTimeout(tock, ns / 1e6)
 
+}
+
+function millies(arr){
+	return (arr[0] * 1e3) + (arr[1] * ns2ms)
 }
 
 function nanos(arr){
