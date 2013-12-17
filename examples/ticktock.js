@@ -10,6 +10,3 @@ function tock(tick, interval){
   tick()
 };
 
-setInterval(function(){
-  console.log('setInterval is ' +  Math.abs(1e9 - t2.sinceLastNS()) + ' nanoseconds off 1 second mark')
-}, 1000)

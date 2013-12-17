@@ -83,12 +83,12 @@ T.prototype.every = function(ns, fn, go){
     }
 
     else if(self.skip) {
-      process.nextTick(loop)
+     setImmediate(loop)
     }
 
     else if(d < self.threshold) {
       // under the threshold, its nextTicks until the interval is up
-      self.skip = true; process.nextTick(loop) 
+      self.skip = true; setImmediate(loop) 
     }
 
     else {
