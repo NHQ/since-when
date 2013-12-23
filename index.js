@@ -58,6 +58,10 @@ T.prototype.avg = function(){
   return avg(this.beats);
 };
 
+T.prototype.everyS = function(s, fn, go){
+	this.every(s * 1e9, fn, go)
+}
+
 T.prototype.every = function(ns, fn, go){
 
   var self = new T();
