@@ -29,7 +29,7 @@ function T(){
   self.end = []
   self.beats =  []
   self.averageSetSize = 333
-  self.threshold = 1e7 // 10,000,000 ns ( 10 ms )
+  self.threshold = 1e6 // 10,000,000 ns ( 10 ms )
   self.skip = false
 };
 
@@ -96,7 +96,7 @@ T.prototype.every = function(ns, fn, go){
     }
 
     else {
-      if(self.beats.length > 9) {
+      if(false || self.beats.length > 9) {
 	var r = self.beats.length / self.averageSetSize;
         self.threshold = avg(self.beats) * .45 * r * 2
       }
@@ -117,7 +117,7 @@ T.prototype.every = function(ns, fn, go){
   
   if(go) tock()
 
-  else setTimeout(tock, ns / 1e6)
+  else loop()
 
 }
 
