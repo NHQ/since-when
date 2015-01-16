@@ -74,7 +74,8 @@ T.prototype.every = function(ns, fn, go){
   function tick(){
 
     var ns = nanos(self.sinceLast());
-    self.beats.push(ns);
+//  unnecessary cuz no longer trying to optimize in loop()
+//    self.beats.push(ns);
     loop()
 
   };
