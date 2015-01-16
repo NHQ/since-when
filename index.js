@@ -96,7 +96,7 @@ T.prototype.every = function(ns, fn, go){
     }
 
     else {
-      if(false || self.beats.length > 9) {
+      if(false && self.beats.length > 9) {
 	var r = self.beats.length / self.averageSetSize;
         self.threshold = avg(self.beats) * .45 * r * 2
       }
